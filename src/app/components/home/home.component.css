@@ -1,0 +1,12 @@
+.image-container {
+    text-align: center;
+    margin: 0; /* Rimuovere il margine per evitare spazi bianchi */
+    padding: 0; /* Rimuovere il padding per evitare spazi bianchi */
+  }
+  
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Evita spazio bianco sotto l'immagine */
+  }
+  
