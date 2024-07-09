@@ -6,10 +6,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-contract-managers',
   templateUrl: './contract-managers.component.html',
-  styleUrl: './contract-managers.component.css'
+  styleUrls: ['./contract-managers.component.css'] 
 })
 export class ContractManagersComponent implements OnInit {
   assignmentForm: FormGroup;
+  message: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -17,7 +18,7 @@ export class ContractManagersComponent implements OnInit {
   ) {
     this.assignmentForm = this.fb.group({
       contractId: [null, Validators.required],
-      managerId: [null, Validators.required]
+      managerIds: [null, Validators.required] 
     });
   }
 
@@ -25,10 +26,20 @@ export class ContractManagersComponent implements OnInit {
 
   onSubmit(): void {
     if (this.assignmentForm.valid) {
-      const assignment: ContractManagerAssignment = this.assignmentForm.value;
-      this.contractManagersService.assignManagers(assignment).subscribe(response => {
-        console.log('Managers assigned:', response);
-      });
+      const assignment: ContractManagerAssignment = {
+        contractId: this.assignmentForm.value.contractId,
+        managerIds: this.assignmentForm.value.managerIds.split(',').map((id: string) => +id.trim())
+      };
+
+      this.contractManagersService.assignManagers(assignment).subscribe(
+        response => {
+          this.message = 'Managers assigned successfully!';
+        },
+        error => {
+          this.message = 'Failed to assign managers. Error: ' + error;
+          console.error('Error assigning managers:', error);
+        }
+      );
     }
   }
 }

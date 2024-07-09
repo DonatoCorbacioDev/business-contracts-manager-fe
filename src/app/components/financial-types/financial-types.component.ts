@@ -5,7 +5,7 @@ import { FinancialType } from '../../models/financial-type.model';
 @Component({
   selector: 'app-financial-types',
   templateUrl: './financial-types.component.html',
-  styleUrl: './financial-types.component.css'
+  styleUrls: ['./financial-types.component.css']
 })
 export class FinancialTypesComponent {
   financialTypes: FinancialType[] = [];

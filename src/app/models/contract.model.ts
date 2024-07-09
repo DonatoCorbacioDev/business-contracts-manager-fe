@@ -5,5 +5,6 @@ export interface Contract {
     wbs: string;
     projectName: string;
     area: string;
+    managerId?: number; 
   }
   

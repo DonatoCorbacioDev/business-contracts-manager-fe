@@ -1,17 +1,18 @@
 <div>
-    <h1>Assign Managers to Contract</h1>
-    <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
-      <mat-form-field>
-        <mat-label>Contract ID</mat-label>
-        <input matInput formControlName="contractId">
-      </mat-form-field>
-  
-      <mat-form-field>
-        <mat-label>Manager IDs (comma separated)</mat-label>
-        <input matInput formControlName="managerId">
-      </mat-form-field>
-  
-      <button mat-raised-button color="primary" type="submit">Assign Managers</button>
-    </form>
-  </div>
-  
+  <h1>Assign Managers to Contract</h1>
+  <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>Contract ID</mat-label>
+      <input matInput formControlName="contractId">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Manager IDs (comma separated)</mat-label>
+      <input matInput formControlName="managerIds">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Assign Managers</button>
+  </form>
+
+  <div *ngIf="message" class="message">{{ message }}</div>
+</div>

@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>{{ data.id ? 'Edit Contract' : 'Add Contract' }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="contractForm">
+    <mat-form-field>
+      <mat-label>Customer</mat-label>
+      <input matInput formControlName="customer">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Contract</mat-label>
+      <input matInput formControlName="contract">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>WBS</mat-label>
+      <input matInput formControlName="wbs">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Project Name</mat-label>
+      <input matInput formControlName="projectName">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Area</mat-label>
+      <input matInput formControlName="area">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Manager</mat-label>
+      <mat-select formControlName="managerId">
+        <mat-option *ngFor="let manager of managers" [value]="manager.id">
+          {{ manager.firstName }} {{ manager.lastName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSave()">Save</button>
+</div>

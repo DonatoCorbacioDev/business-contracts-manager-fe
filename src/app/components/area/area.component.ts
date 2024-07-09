@@ -5,7 +5,7 @@ import { Area } from '../../models/area.model';
 @Component({
   selector: 'app-area',
   templateUrl: './area.component.html',
-  styleUrl: './area.component.css'
+  styleUrls: ['./area.component.css']
 })
 export class AreaComponent {
   area: Area[] = [];

@@ -1,5 +1,4 @@
 export interface ContractManagerAssignment {
-    contractId: number;
-    managerId: number[];
-  }
-  
+  contractId: number;
+  managerIds: number[];
+}

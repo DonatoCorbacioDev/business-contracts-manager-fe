@@ -24,7 +24,7 @@ export class ManagersService {
     return this.http.post<Manager>(`${baseUrl}/insert`, manager);
   }
 
-  updateManager(id: number, manager: Manager): Observable<Manager> {
+  updateManager(manager: Manager): Observable<Manager> {
     return this.http.put<Manager>(`${baseUrl}/update`, manager);
   }
 
