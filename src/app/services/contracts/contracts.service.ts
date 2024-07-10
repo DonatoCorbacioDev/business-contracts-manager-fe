@@ -31,4 +31,9 @@ export class ContractsService {
   deleteContract(id: number): Observable<void> {
     return this.http.delete<void>(`${baseUrl}/delete?id=${id}`);
   }
+
+  assignManagersToContract(contractId: number, managerIds: number[]): Observable<any> {
+    const url = `${baseUrl}/assignManagers`;
+    return this.http.post<any>(url, { contractId, managerIds });
+  }
 }

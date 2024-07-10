@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ContractsService } from '../../../services/contracts/contracts.service';
-import { ManagersService } from '../../../services/managers/managers.service';
+import { ManagersService } from '../../../services/managers/managers.service'; // Importa il servizio dei manager
 import { Contract } from '../../../models/contract.model';
 import { Manager } from '../../../models/manager.model';
 
@@ -29,30 +29,33 @@ export class AddEditContractDialogComponent implements OnInit {
       wbs: [data ? data.wbs : '', Validators.required],
       projectName: [data ? data.projectName : '', Validators.required],
       area: [data ? data.area : '', Validators.required],
-      managerId: [data ? data.managerId : null, Validators.required]  // Aggiungi questo campo
+      managerIds: [[], Validators.required] 
     });
   }
 
   ngOnInit(): void {
-    this.loadManagers();
-  }
-
-  loadManagers(): void {
-    this.managersService.getAll().subscribe(data => {
-      this.managers = data;
+    this.managersService.getAll().subscribe((managers) => {
+      this.managers = managers;
     });
   }
 
   onSave(): void {
+    console.log(this.contractForm.valid);
     if (this.contractForm.valid) {
       const contract = this.contractForm.value;
+      console.log(contract.id)
       if (contract.id) {
         this.contractsService.updateContract(contract.id, contract).subscribe(() => {
           this.dialogRef.close(true);
         });
       } else {
-        this.contractsService.insertContract(contract).subscribe(() => {
-          this.dialogRef.close(true);
+        this.contractsService.insertContract(contract).subscribe((newContract) => {
+          console.log(newContract);
+          console.log(contract);
+          console.log(contract.managersIds);
+          this.contractsService.assignManagersToContract(newContract.id, contract.managerIds).subscribe(() => {
+            this.dialogRef.close(true);
+          });
         });
       }
     }

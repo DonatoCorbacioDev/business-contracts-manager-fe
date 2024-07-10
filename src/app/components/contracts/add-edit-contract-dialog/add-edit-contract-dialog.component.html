@@ -22,8 +22,8 @@
       <input matInput formControlName="area">
     </mat-form-field>
     <mat-form-field>
-      <mat-label>Manager</mat-label>
-      <mat-select formControlName="managerId">
+      <mat-label>Managers</mat-label>
+      <mat-select formControlName="managerIds" multiple>
         <mat-option *ngFor="let manager of managers" [value]="manager.id">
           {{ manager.firstName }} {{ manager.lastName }}
         </mat-option>
