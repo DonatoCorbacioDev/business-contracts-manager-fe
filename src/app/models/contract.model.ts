@@ -1,3 +1,5 @@
+import { Manager } from './manager.model';
+
 export interface Contract {
     id: number;
     customer: string;
@@ -5,6 +7,7 @@ export interface Contract {
     wbs: string;
     projectName: string;
     area: string;
-    managerId?: number; 
+    managerIds?: number[];
+    managers?: Manager[]; 
   }
   

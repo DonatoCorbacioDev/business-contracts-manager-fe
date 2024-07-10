@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +25,7 @@ import { FinancialTypesComponent } from './components/financial-types/financial-
 import { AreaComponent } from './components/area/area.component';
 import { AddEditContractDialogComponent } from './components/contracts/add-edit-contract-dialog/add-edit-contract-dialog.component';
 import { AddEditManagerDialogComponent } from './components/managers/add-edit-manager-dialog/add-edit-manager-dialog.component';
+import { ContractsSelectViewComponent } from './components/contracts-select-view/contracts-select-view.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { AddEditManagerDialogComponent } from './components/managers/add-edit-ma
     FinancialTypesComponent,
     FinancialValuesComponent,
     AddEditContractDialogComponent,
-    AddEditManagerDialogComponent
+    AddEditManagerDialogComponent,
+    ContractsSelectViewComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { AddEditManagerDialogComponent } from './components/managers/add-edit-ma
     MatInputModule,
     MatSelectModule,
     MatOptionModule, 
+    MatExpansionModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],

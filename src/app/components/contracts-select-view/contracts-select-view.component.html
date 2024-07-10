@@ -1,0 +1,44 @@
+<div class="contracts-container">
+  <h1>Contracts</h1>
+  <button mat-raised-button color="primary" (click)="addContract()">Add Contract</button>
+  <table mat-table [dataSource]="contracts" class="mat-elevation-z8">
+    <ng-container matColumnDef="contract">
+      <th mat-header-cell *matHeaderCellDef> Contract </th>
+      <td mat-cell *matCellDef="let contract">
+        {{ contract.contract }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="projectName">
+      <th mat-header-cell *matHeaderCellDef> Project Name </th>
+      <td mat-cell *matCellDef="let contract">{{ contract.projectName }}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let contract">
+        <button mat-button (click)="toggleDetails(contract)">View</button>
+        <button mat-button (click)="editContract(contract)">Edit</button>
+        <button mat-button (click)="deleteContract(contract.id)">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <ng-container *ngFor="let contract of contracts">
+    <mat-accordion *ngIf="selectedContract && selectedContract.id === contract.id">
+      <mat-expansion-panel [expanded]="true" hideToggle>
+        <div class="contract-details">
+          <p><strong>ID:</strong> {{ contract.id }}</p>
+          <p><strong>Customer:</strong> {{ contract.customer }}</p>
+          <p><strong>Area:</strong> {{ contract.area }}</p>
+          <p><strong>Managers:</strong>
+            <span *ngFor="let manager of contract.managers; let last = last">
+              {{ manager.firstName }} {{ manager.lastName }}<span *ngIf="!last">, </span>
+            </span>
+          </p>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </ng-container>
+</div>

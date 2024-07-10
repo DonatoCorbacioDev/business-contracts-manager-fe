@@ -29,13 +29,17 @@ export class AddEditContractDialogComponent implements OnInit {
       wbs: [data ? data.wbs : '', Validators.required],
       projectName: [data ? data.projectName : '', Validators.required],
       area: [data ? data.area : '', Validators.required],
-      managerIds: [[], Validators.required] 
+      managerIds: [data && data.managerIds ? data.managerIds : [], Validators.required]
     });
   }
 
   ngOnInit(): void {
     this.managersService.getAll().subscribe((managers) => {
       this.managers = managers;
+      if (this.data && this.data.managers) {
+        const managerIds = this.data.managers.map(manager => manager.id);
+        this.contractForm.patchValue({ managerIds });
+      }
     });
   }
 
@@ -43,14 +47,24 @@ export class AddEditContractDialogComponent implements OnInit {
     if (this.contractForm.valid) {
       const contract = this.contractForm.value;
       if (contract.id) {
-        this.contractsService.updateContract(contract.id, contract).subscribe(() => {
-          this.dialogRef.close(true);
+        this.contractsService.updateContract(contract.id, contract).subscribe((updatedContract) => {
+          if (contract.managerIds.length > 0) {
+            this.contractsService.assignManagersToContract(updatedContract.id, contract.managerIds).subscribe(() => {
+              this.dialogRef.close(true);
+            });
+          } else {
+            this.dialogRef.close(true);
+          }
         });
       } else {
         this.contractsService.insertContract(contract).subscribe((newContract) => {
-          this.contractsService.assignManagersToContract(newContract.id, contract.managerIds).subscribe(() => {
+          if (contract.managerIds.length > 0) {
+            this.contractsService.assignManagersToContract(newContract.id, contract.managerIds).subscribe(() => {
+              this.dialogRef.close(true);
+            });
+          } else {
             this.dialogRef.close(true);
-          });
+          }
         });
       }
     }
