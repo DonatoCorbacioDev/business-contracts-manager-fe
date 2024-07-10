@@ -40,19 +40,14 @@ export class AddEditContractDialogComponent implements OnInit {
   }
 
   onSave(): void {
-    console.log(this.contractForm.valid);
     if (this.contractForm.valid) {
       const contract = this.contractForm.value;
-      console.log(contract.id)
       if (contract.id) {
         this.contractsService.updateContract(contract.id, contract).subscribe(() => {
           this.dialogRef.close(true);
         });
       } else {
         this.contractsService.insertContract(contract).subscribe((newContract) => {
-          console.log(newContract);
-          console.log(contract);
-          console.log(contract.managersIds);
           this.contractsService.assignManagersToContract(newContract.id, contract.managerIds).subscribe(() => {
             this.dialogRef.close(true);
           });
