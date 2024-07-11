@@ -59,11 +59,7 @@ export class ManagersComponent implements OnInit {
         alert('Manager successfully deleted');
       },
       (error) => {
-        if (error.status === 409) {
-          alert('Cannot delete manager: it has related entities');
-        } else {
-          alert('Internal server error');
-        }
+        console.error(error);
       }
     );
   }

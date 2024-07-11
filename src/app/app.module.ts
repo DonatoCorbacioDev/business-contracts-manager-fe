@@ -18,7 +18,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-import { ContractsComponent } from './components/contracts/contracts.component';
 import { ManagersComponent } from './components/managers/managers.component';
 import { FinancialValuesComponent } from './components/financial-values/financial-values.component';
 import { FinancialTypesComponent } from './components/financial-types/financial-types.component';
@@ -26,19 +25,20 @@ import { AreaComponent } from './components/area/area.component';
 import { AddEditContractDialogComponent } from './components/contracts/add-edit-contract-dialog/add-edit-contract-dialog.component';
 import { AddEditManagerDialogComponent } from './components/managers/add-edit-manager-dialog/add-edit-manager-dialog.component';
 import { ContractsSelectViewComponent } from './components/contracts-select-view/contracts-select-view.component';
+import { AddEditAreaDialogComponent } from './components/area/add-edit-area-dialog/add-edit-area-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ContractsComponent,
     ManagersComponent,
     AreaComponent,
     FinancialTypesComponent,
     FinancialValuesComponent,
     AddEditContractDialogComponent,
     AddEditManagerDialogComponent,
-    ContractsSelectViewComponent
+    ContractsSelectViewComponent,
+    AddEditAreaDialogComponent
   ],
   imports: [
     BrowserModule,

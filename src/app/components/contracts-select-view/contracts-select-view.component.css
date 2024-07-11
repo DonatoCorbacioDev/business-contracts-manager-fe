@@ -48,24 +48,3 @@ h1 {
   color: #333;
 }
 
-.contracts-container {
-  margin: 20px;
-}
-
-.contract-details {
-  padding: 16px;
-}
-
-.example-element-row {
-  cursor: pointer;
-}
-
-.example-expanded-row .mat-cell {
-  border-bottom: none;
-}
-
-.example-element-detail {
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-}

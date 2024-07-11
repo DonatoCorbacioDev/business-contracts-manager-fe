@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>{{ data.id ? 'Edit Area' : 'Add Area' }}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="areaForm">
+        <mat-form-field>
+            <mat-label>Value</mat-label>
+            <input matInput formControlName="value">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description">
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button (click)="onSave()">Save</button>
+</div>
