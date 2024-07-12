@@ -1,46 +1,45 @@
 /* Stile generale per il contenuto del dialogo */
 mat-dialog-content {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  
-  /* Stile per i campi del modulo */
-  mat-form-field {
-    width: 100%;
-  }
-  
-  /* Stile per le azioni del dialogo */
-  mat-dialog-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-  }
-  
-  /* Pulsante di salvataggio */
-  button.mat-button.mat-primary {
-    background-color: #1976d2;
-    color: white;
-  }
-  
-  button.mat-button.mat-primary:hover {
-    background-color: #155a9a;
-  }
-  
-  /* Pulsante di cancellazione */
-  button.mat-button {
-    background-color: #e0e0e0;
-    color: black;
-  }
-  
-  button.mat-button:hover {
-    background-color: #bdbdbd;
-  }
-  
-  /* Stile per l'intestazione del dialogo */
-  mat-dialog-title {
-    font-size: 1.5em;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Stile per i campi del modulo */
+mat-form-field {
+  width: 100%;
+}
+
+/* Stile per le azioni del dialogo */
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* Pulsante di salvataggio */
+button.mat-button.mat-primary {
+  background-color: #1976d2;
+  color: white;
+}
+
+button.mat-button.mat-primary:hover {
+  background-color: #155a9a;
+}
+
+/* Pulsante di cancellazione */
+button.mat-button {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+button.mat-button:hover {
+  background-color: #bdbdbd;
+}
+
+/* Stile per l'intestazione del dialogo */
+mat-dialog-title {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  text-align: center;
+}

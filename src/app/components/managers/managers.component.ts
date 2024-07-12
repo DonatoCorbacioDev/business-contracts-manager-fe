@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ManagersService } from '../../services/managers/managers.service';
 import { Manager } from '../../models/manager.model';
 import { AddEditManagerDialogComponent } from './add-edit-manager-dialog/add-edit-manager-dialog.component';
@@ -14,7 +15,8 @@ export class ManagersComponent implements OnInit {
   managers: Manager[] = [];
   displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email', 'phoneNumber', 'department', 'actions'];
 
-  constructor(private managersService: ManagersService, private dialog: MatDialog) { }
+  constructor(private managersService: ManagersService, 
+    private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadManagers();
@@ -56,10 +58,14 @@ export class ManagersComponent implements OnInit {
     this.managersService.deleteManager(id).subscribe(
       () => {
         this.loadManagers();
-        alert('Manager successfully deleted');
+        this.snackBar.open('Manager successfully deleted', 'Close', {
+          duration: 3000,
+        });
       },
       (error) => {
-        console.error(error);
+        this.snackBar.open(error, 'Close', {
+          duration: 5000,
+        });
       }
     );
   }

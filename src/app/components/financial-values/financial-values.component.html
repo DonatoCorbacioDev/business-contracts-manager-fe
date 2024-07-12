@@ -1,37 +1,44 @@
 <div>
-    <h1>Financial Values</h1>
-    <table mat-table [dataSource]="financialValues" class="mat-elevation-z8">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let financialValue"> {{financialValue.id}} </td>
-      </ng-container>
-      <ng-container matColumnDef="month">
-        <th mat-header-cell *matHeaderCellDef> Month </th>
-        <td mat-cell *matCellDef="let financialValue"> {{financialValue.month}} </td>
-      </ng-container>
-      <ng-container matColumnDef="year">
-        <th mat-header-cell *matHeaderCellDef> Year </th>
-        <td mat-cell *matCellDef="let financialValue"> {{financialValue.year}} </td>
-      </ng-container>
-      <ng-container matColumnDef="value">
-        <th mat-header-cell *matHeaderCellDef> Value </th>
-        <td mat-cell *matCellDef="let financialValue"> {{financialValue.value}} </td>
-      </ng-container>
-      <ng-container matColumnDef="financialTypeId">
-        <th mat-header-cell *matHeaderCellDef> Financial Type ID </th>
-        <td mat-cell *matCellDef="let financialValue"> {{financialValue.financialTypeId}} </td>
-      </ng-container>
-      <ng-container matColumnDef="areaId">
-        <th mat-header-cell *matHeaderCellDef> Area ID </th>
-        <td mat-cell *matCellDef="let financialValue"> {{financialValue.areaId}} </td>
-      </ng-container>
-      <ng-container matColumnDef="contractId">
-        <th mat-header-cell *matHeaderCellDef> Contract ID </th>
-        <td mat-cell *matCellDef="let financialValue"> {{financialValue.contractId}} </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </div>
-  
+  <h1>Financial Values</h1>
+  <button mat-raised-button color="primary" (click)="addFinancialValue()">Add Financial Value </button>
+  <table mat-table [dataSource]="financialValues" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let financialValue"> {{financialValue.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="month">
+      <th mat-header-cell *matHeaderCellDef> Month </th>
+      <td mat-cell *matCellDef="let financialValue"> {{financialValue.month}} </td>
+    </ng-container>
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef> Year </th>
+      <td mat-cell *matCellDef="let financialValue"> {{financialValue.year}} </td>
+    </ng-container>
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef> Value </th>
+      <td mat-cell *matCellDef="let financialValue"> {{financialValue.value}} </td>
+    </ng-container>
+    <ng-container matColumnDef="financialType">
+      <th mat-header-cell *matHeaderCellDef> Financial Type </th>
+      <td mat-cell *matCellDef="let financialValue"> {{financialValue.financialType}} </td>
+    </ng-container>
+    <ng-container matColumnDef="area">
+      <th mat-header-cell *matHeaderCellDef> Area </th>
+      <td mat-cell *matCellDef="let financialValue"> {{financialValue.area}} </td>
+    </ng-container>
+    <ng-container matColumnDef="contract">
+      <th mat-header-cell *matHeaderCellDef> Contract </th>
+      <td mat-cell *matCellDef="let financialValue"> {{financialValue.contract}} </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let financialValue">
+        <button mat-button (click)="editFinancialValue(financialValue)">Edit</button>
+        <button mat-button (click)="deleteFinancialValue(financialValue.id)">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

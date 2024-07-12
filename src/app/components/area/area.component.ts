@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AreaService } from '../../services/area/area.service';
 import { Area } from '../../models/area.model';
 import { AddEditAreaDialogComponent } from './add-edit-area-dialog/add-edit-area-dialog.component';
@@ -13,7 +14,8 @@ export class AreaComponent implements OnInit {
   area: Area[] = [];
   displayedColumns: string[] = ['id', 'value', 'description', 'actions'];
 
-  constructor(private areaService: AreaService, private dialog: MatDialog) { }
+  constructor(private areaService: AreaService,
+    private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadArea();
@@ -54,11 +56,15 @@ export class AreaComponent implements OnInit {
   deleteArea(id: number): void {
     this.areaService.deleteArea(id).subscribe(
       () => {
-        this.area = this.area.filter(area => area.id !== id);
-        alert('Area successfully deleted');
+        this.loadArea();
+        this.snackBar.open('Area successfully deleted', 'Close', {
+          duration: 3000,
+        });
       },
-      error => {
-        alert(`Error: ${error.message}`);
+      (error) => {
+        this.snackBar.open(error, 'Close', {
+          duration: 5000,
+        });
       }
     );
   }

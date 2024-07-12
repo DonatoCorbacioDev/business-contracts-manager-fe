@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ContractsService } from '../../services/contracts/contracts.service';
 import { Contract } from '../../models/contract.model';
 import { AddEditContractDialogComponent } from '../../components/contracts/add-edit-contract-dialog/add-edit-contract-dialog.component';
@@ -15,7 +16,8 @@ export class ContractsSelectViewComponent implements OnInit {
   selectedContract: Contract | null = null;
   displayedColumns: string[] = ['contract', 'projectName', 'actions'];
 
-  constructor(private contractsService: ContractsService, private dialog: MatDialog) { }
+  constructor(private contractsService: ContractsService,
+    private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadContracts();
@@ -55,10 +57,14 @@ export class ContractsSelectViewComponent implements OnInit {
     this.contractsService.deleteContract(id).subscribe(
       () => {
         this.loadContracts();
-        alert('Contract successfully deleted');
+        this.snackBar.open('Contract successfully deleted', 'Close', {
+          duration: 3000,
+        });
       },
       (error) => {
-        console.error(error);
+        this.snackBar.open(error, 'Close', {
+          duration: 5000,
+        });
       }
     );
   }

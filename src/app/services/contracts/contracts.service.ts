@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Contract } from '../../models/contract.model';
 
 const baseUrl = 'http://localhost:8081/contracts';
@@ -29,7 +30,15 @@ export class ContractsService {
   }
 
   deleteContract(id: number): Observable<void> {
-    return this.http.delete<void>(`${baseUrl}/delete?id=${id}`);
+    return this.http.delete<void>(`${baseUrl}/delete?id=${id}`).pipe(
+      catchError(error => {
+        let errorMsg = 'An error occurred';
+        if (error.status === 409) { 
+          errorMsg = 'Cannot delete contract: it is assigned to one or more managers.';
+        }
+        return throwError(errorMsg);
+      })
+    );
   }
 
   assignManagersToContract(contractId: number, managerIds: number[]): Observable<any> {

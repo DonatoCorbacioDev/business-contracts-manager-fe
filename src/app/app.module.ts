@@ -14,6 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +27,8 @@ import { AddEditContractDialogComponent } from './components/contracts/add-edit-
 import { AddEditManagerDialogComponent } from './components/managers/add-edit-manager-dialog/add-edit-manager-dialog.component';
 import { ContractsSelectViewComponent } from './components/contracts-select-view/contracts-select-view.component';
 import { AddEditAreaDialogComponent } from './components/area/add-edit-area-dialog/add-edit-area-dialog.component';
+import { AddEditFinancialTypeDialogComponent } from './components/financial-types/add-edit-financial-type-dialog/add-edit-financial-type-dialog.component';
+import { AddEditFinancialValueDialogComponent } from './components/financial-values/add-edit-financial-value-dialog/add-edit-financial-value-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { AddEditAreaDialogComponent } from './components/area/add-edit-area-dial
     AddEditContractDialogComponent,
     AddEditManagerDialogComponent,
     ContractsSelectViewComponent,
-    AddEditAreaDialogComponent
+    AddEditAreaDialogComponent,
+    AddEditFinancialTypeDialogComponent,
+    AddEditFinancialValueDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,6 +61,7 @@ import { AddEditAreaDialogComponent } from './components/area/add-edit-area-dial
     MatSelectModule,
     MatOptionModule, 
     MatExpansionModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],

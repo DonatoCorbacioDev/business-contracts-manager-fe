@@ -1,5 +1,6 @@
 <div>
     <h1>Financial Types</h1>
+    <button mat-raised-button color="primary" (click)="addFinancialType()">Add Financial Type</button>
     <table mat-table [dataSource]="financialTypes" class="mat-elevation-z8">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> ID </th>
@@ -12,6 +13,13 @@
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef> Description </th>
         <td mat-cell *matCellDef="let financialType"> {{financialType.description}} </td>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let financialType">
+          <button mat-button (click)="editFinancialType(financialType)">Edit</button>
+          <button mat-button (click)="deleteFinancialType(financialType.id)">Delete</button>
+        </td>
       </ng-container>
   
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

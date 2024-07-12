@@ -4,6 +4,9 @@ export interface FinancialValue {
     year: number;
     value: number;
     financialTypeId: number;
+    financialType?: string;
     areaId: number;
+    area?: string;
     contractId: number;
+    contract?: string;
   }
