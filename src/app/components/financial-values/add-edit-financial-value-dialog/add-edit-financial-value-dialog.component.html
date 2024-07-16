@@ -3,11 +3,15 @@
   <form [formGroup]="financialValueForm">
     <mat-form-field>
       <mat-label>Month</mat-label>
-      <input matInput formControlName="month">
+      <mat-select formControlName="month">
+        <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Year</mat-label>
-      <input matInput formControlName="year">
+      <mat-select formControlName="year">
+        <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Value</mat-label>

@@ -48,3 +48,22 @@ h1 {
   color: #333;
 }
 
+/* Stile per i controlli */
+.controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Stile per il campo di ricerca */
+mat-form-field {
+  flex: 1;
+  max-width: 400px;
+  margin-left: 20px;
+}
+
+/* Stile per il bottone */
+button[mat-raised-button] {
+  margin-right: 20px;
+}

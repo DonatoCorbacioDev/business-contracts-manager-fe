@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { forkJoin } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 import { FinancialValuesService } from '../../services/financial-values/financial-values.service';
 import { FinancialTypesService } from '../../services/financial-types/financial-types.service';
 import { AreaService } from '../../services/area/area.service';
@@ -18,33 +20,47 @@ import { AddEditFinancialValueDialogComponent } from './add-edit-financial-value
 })
 export class FinancialValuesComponent implements OnInit {
   financialValues: FinancialValue[] = [];
+  dataSource: MatTableDataSource<FinancialValue> = new MatTableDataSource<FinancialValue>();
   financialTypes: FinancialType[] = [];
   areas: Area[] = [];
   contracts: Contract[] = [];
   displayedColumns: string[] = ['id', 'month', 'year', 'value', 'financialType', 'area', 'contract', 'actions'];
 
   constructor(private financialValuesService: FinancialValuesService,
-    private financialTypesService: FinancialTypesService,
-    private areaService: AreaService,
-    private contractsService: ContractsService,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog) { }
+              private financialTypesService: FinancialTypesService,
+              private areaService: AreaService,
+              private contractsService: ContractsService,
+              private snackBar: MatSnackBar,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loadFinancialValues();
     this.loadFinancialTypes();
     this.loadAreas();
     this.loadContracts();
+    this.dataSource.filterPredicate = (data: FinancialValue, filter: string): boolean => {
+      return data.contract ? data.contract.toLowerCase().includes(filter) : false;
+    };
   }
 
   loadFinancialValues(): void {
-    this.financialValuesService.getAll().subscribe(data => {
-      this.financialValues = data.map(fv => ({
+    forkJoin({
+      financialValues: this.financialValuesService.getAll(),
+      financialTypes: this.financialTypesService.getAll(),
+      areas: this.areaService.getAll(),
+      contracts: this.contractsService.getAll()
+    }).subscribe(({ financialValues, financialTypes, areas, contracts }) => {
+      this.financialTypes = financialTypes;
+      this.areas = areas;
+      this.contracts = contracts;
+
+      this.financialValues = financialValues.map(fv => ({
         ...fv,
         financialType: this.getFinancialType(fv.financialTypeId),
         area: this.getArea(fv.areaId),
         contract: this.getContract(fv.contractId)
       }));
+      this.dataSource.data = this.financialValues;
     });
   }
 
@@ -68,17 +84,17 @@ export class FinancialValuesComponent implements OnInit {
 
   getFinancialType(id: number): string {
     const type = this.financialTypes.find(ft => ft.id === id);
-    return type ? type.value : '';
+    return type ? type.value : 'N/A';
   }
 
   getArea(id: number): string {
     const area = this.areas.find(a => a.id === id);
-    return area ? area.value : '';
+    return area ? area.value : 'N/A';
   }
 
   getContract(id: number): string {
     const contract = this.contracts.find(c => c.id === id);
-    return contract ? contract.contract : '';
+    return contract ? contract.contract : 'N/A';
   }
 
   addFinancialValue(): void {
@@ -130,5 +146,13 @@ export class FinancialValuesComponent implements OnInit {
         });
       }
     );
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    this.dataSource.filterPredicate = (data: FinancialValue, filter: string): boolean => {
+      return data.contract ? data.contract.toLowerCase().includes(filter) : false;
+    };
+    this.dataSource.filter = filterValue;
   }
 }

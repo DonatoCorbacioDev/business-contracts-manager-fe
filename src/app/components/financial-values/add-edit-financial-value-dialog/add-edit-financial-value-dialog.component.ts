@@ -2,7 +2,6 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FinancialValuesService } from '../../../services/financial-values/financial-values.service';
-import { FinancialValue } from '../../../models/financial-value.model';
 import { FinancialType } from '../../../models/financial-type.model';
 import { Area } from '../../../models/area.model';
 import { Contract } from '../../../models/contract.model';
@@ -12,13 +11,15 @@ import { Contract } from '../../../models/contract.model';
   templateUrl: './add-edit-financial-value-dialog.component.html',
   styleUrls:  ['./add-edit-financial-value-dialog.component.css']
 })
-export class AddEditFinancialValueDialogComponent {
+export class AddEditFinancialValueDialogComponent implements OnInit {
 
   financialValueForm: FormGroup;
   financialTypes: FinancialType[];
   areas: Area[];
   contracts: Contract[];
   isEdit: boolean = false;
+  months: number[] = Array.from({ length: 12 }, (_, i) => i + 1);
+  years: number[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -42,6 +43,11 @@ export class AddEditFinancialValueDialogComponent {
       areaId: [financialValue.areaId || '', Validators.required],
       contractId: [financialValue.contractId || '', Validators.required]
     });
+
+    const currentYear = new Date().getFullYear();
+    for (let i = currentYear - 10; i <= currentYear + 10; i++) {
+      this.years.push(i);
+    }
   }
 
   ngOnInit(): void {}
