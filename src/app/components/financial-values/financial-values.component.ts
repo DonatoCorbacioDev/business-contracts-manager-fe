@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { forkJoin } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 import { FinancialValuesService } from '../../services/financial-values/financial-values.service';
+import { ContractsService } from '../../services/contracts/contracts.service';
 import { FinancialTypesService } from '../../services/financial-types/financial-types.service';
 import { AreaService } from '../../services/area/area.service';
-import { ContractsService } from '../../services/contracts/contracts.service';
-import { FinancialType } from '../../models/financial-type.model';
-import { Area } from '../../models/area.model';
 import { Contract } from '../../models/contract.model';
 import { FinancialValue } from '../../models/financial-value.model';
+import { FinancialType } from '../../models/financial-type.model';
+import { Area } from '../../models/area.model';
 import { AddEditFinancialValueDialogComponent } from './add-edit-financial-value-dialog/add-edit-financial-value-dialog.component';
 
 @Component({
@@ -19,48 +18,44 @@ import { AddEditFinancialValueDialogComponent } from './add-edit-financial-value
   styleUrls: ['./financial-values.component.css']
 })
 export class FinancialValuesComponent implements OnInit {
+  contracts: Contract[] = [];
+  selectedContract: Contract | null = null;
   financialValues: FinancialValue[] = [];
-  dataSource: MatTableDataSource<FinancialValue> = new MatTableDataSource<FinancialValue>();
+  dataSourceContracts: MatTableDataSource<Contract> = new MatTableDataSource<Contract>();
+  dataSourceFinancialValues: MatTableDataSource<FinancialValue> = new MatTableDataSource<FinancialValue>();
+  displayedColumnsContracts: string[] = ['contract', 'actions'];
+  displayedColumnsFinancialValues: string[] = ['id', 'month', 'year', 'value', 'financialType', 'area', 'actions'];
   financialTypes: FinancialType[] = [];
   areas: Area[] = [];
-  contracts: Contract[] = [];
-  displayedColumns: string[] = ['id', 'month', 'year', 'value', 'financialType', 'area', 'contract', 'actions'];
 
-  constructor(private financialValuesService: FinancialValuesService,
+  constructor(private contractsService: ContractsService,
+              private financialValuesService: FinancialValuesService,
               private financialTypesService: FinancialTypesService,
               private areaService: AreaService,
-              private contractsService: ContractsService,
               private snackBar: MatSnackBar,
               private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.loadFinancialValues();
+    this.loadContracts();
     this.loadFinancialTypes();
     this.loadAreas();
-    this.loadContracts();
-    this.dataSource.filterPredicate = (data: FinancialValue, filter: string): boolean => {
-      return data.contract ? data.contract.toLowerCase().includes(filter) : false;
-    };
   }
 
-  loadFinancialValues(): void {
-    forkJoin({
-      financialValues: this.financialValuesService.getAll(),
-      financialTypes: this.financialTypesService.getAll(),
-      areas: this.areaService.getAll(),
-      contracts: this.contractsService.getAll()
-    }).subscribe(({ financialValues, financialTypes, areas, contracts }) => {
-      this.financialTypes = financialTypes;
-      this.areas = areas;
-      this.contracts = contracts;
+  loadContracts(): void {
+    this.contractsService.getAll().subscribe((data: Contract[]) => {
+      this.contracts = data;
+      this.dataSourceContracts.data = this.contracts;
+    });
+  }
 
-      this.financialValues = financialValues.map(fv => ({
+  loadFinancialValues(contractId: number): void {
+    this.financialValuesService.getByContractId(contractId).subscribe((data: FinancialValue[]) => {
+      this.financialValues = data.map(fv => ({
         ...fv,
         financialType: this.getFinancialType(fv.financialTypeId),
-        area: this.getArea(fv.areaId),
-        contract: this.getContract(fv.contractId)
+        area: this.getArea(fv.areaId)
       }));
-      this.dataSource.data = this.financialValues;
+      this.dataSourceFinancialValues.data = this.financialValues;
     });
   }
 
@@ -76,12 +71,6 @@ export class FinancialValuesComponent implements OnInit {
     });
   }
 
-  loadContracts(): void {
-    this.contractsService.getAll().subscribe(data => {
-      this.contracts = data;
-    });
-  }
-
   getFinancialType(id: number): string {
     const type = this.financialTypes.find(ft => ft.id === id);
     return type ? type.value : 'N/A';
@@ -92,24 +81,27 @@ export class FinancialValuesComponent implements OnInit {
     return area ? area.value : 'N/A';
   }
 
-  getContract(id: number): string {
-    const contract = this.contracts.find(c => c.id === id);
-    return contract ? contract.contract : 'N/A';
+  selectContract(contract: Contract): void {
+    this.selectedContract = contract;
+    this.loadFinancialValues(contract.id);
   }
 
   addFinancialValue(): void {
+    if (!this.selectedContract) {
+      return;
+    }
     const dialogRef = this.dialog.open(AddEditFinancialValueDialogComponent, {
       width: '400px',
       data: {
         financialTypes: this.financialTypes,
         areas: this.areas,
-        contracts: this.contracts
+        contractId: this.selectedContract.id
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loadFinancialValues();
+        this.loadFinancialValues(this.selectedContract!.id);
       }
     });
   }
@@ -121,13 +113,13 @@ export class FinancialValuesComponent implements OnInit {
         financialValue,
         financialTypes: this.financialTypes,
         areas: this.areas,
-        contracts: this.contracts
+        contractId: this.selectedContract!.id
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.loadFinancialValues();
+        this.loadFinancialValues(this.selectedContract!.id);
       }
     });
   }
@@ -135,7 +127,7 @@ export class FinancialValuesComponent implements OnInit {
   deleteFinancialValue(id: number): void {
     this.financialValuesService.deleteFinancialValue(id).subscribe(
       () => {
-        this.loadFinancialValues();
+        this.loadFinancialValues(this.selectedContract!.id);
         this.snackBar.open('Financial value successfully deleted', 'Close', {
           duration: 3000,
         });
@@ -150,9 +142,6 @@ export class FinancialValuesComponent implements OnInit {
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
-    this.dataSource.filterPredicate = (data: FinancialValue, filter: string): boolean => {
-      return data.contract ? data.contract.toLowerCase().includes(filter) : false;
-    };
-    this.dataSource.filter = filterValue;
+    this.dataSourceContracts.filter = filterValue;
   }
 }

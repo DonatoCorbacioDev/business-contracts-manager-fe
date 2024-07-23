@@ -19,7 +19,11 @@ export class FinancialValuesService {
 
   getFinancialValueById(id: number): Observable<FinancialValue> {
     return this.http.get<FinancialValue>(`${baseUrl}/getById?id=${id}`);
-  } 
+  }
+   
+  getByContractId(contractId: number): Observable<FinancialValue[]> {
+    return this.http.get<FinancialValue[]>(`${baseUrl}/getByContractId?contractId=${contractId}`);
+  }
 
   insertFinancialValue(financialValue: FinancialValue): Observable<FinancialValue> {
     return this.http.post<FinancialValue>(`${baseUrl}/insert`, financialValue);

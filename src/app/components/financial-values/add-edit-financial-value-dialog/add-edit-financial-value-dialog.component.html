@@ -33,14 +33,6 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Contract</mat-label>
-      <mat-select formControlName="contractId">
-        <mat-option *ngFor="let contract of contracts" [value]="contract.id">
-          {{ contract.contract }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
   </form>
 </div>
 <div mat-dialog-actions>
