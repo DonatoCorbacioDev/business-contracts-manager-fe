@@ -29,6 +29,7 @@ import { ContractsSelectViewComponent } from './components/contracts-select-view
 import { AddEditAreaDialogComponent } from './components/area/add-edit-area-dialog/add-edit-area-dialog.component';
 import { AddEditFinancialTypeDialogComponent } from './components/financial-types/add-edit-financial-type-dialog/add-edit-financial-type-dialog.component';
 import { AddEditFinancialValueDialogComponent } from './components/financial-values/add-edit-financial-value-dialog/add-edit-financial-value-dialog.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AddEditFinancialValueDialogComponent } from './components/financial-val
     ContractsSelectViewComponent,
     AddEditAreaDialogComponent,
     AddEditFinancialTypeDialogComponent,
-    AddEditFinancialValueDialogComponent
+    AddEditFinancialValueDialogComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

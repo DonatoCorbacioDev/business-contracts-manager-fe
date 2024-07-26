@@ -1,4 +1,9 @@
 <div class="image-container">
-    <img src="assets/dashboard1.jpg" alt="Business Meeting Image">
+  <img src="assets/dashboard1.jpg" alt="Business Meeting Image" onerror="this.src='assets/error1.png'">
+  <div *ngIf="manager && role" class="welcome-overlay">
+    <div class="welcome-container">
+      <h1>Welcome, {{ manager.firstName }} {{ manager.lastName }}</h1>
+      <p>Your role is: {{ role.role }}</p>
+    </div>
   </div>
-  
+</div>

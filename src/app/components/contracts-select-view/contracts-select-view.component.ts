@@ -24,7 +24,7 @@ export class ContractsSelectViewComponent implements OnInit {
   }
 
   loadContracts(): void {
-    this.contractsService.getAll().subscribe(data => {
+    this.contractsService.getContracts().subscribe(data => {
       this.contracts = data;
     });
   }

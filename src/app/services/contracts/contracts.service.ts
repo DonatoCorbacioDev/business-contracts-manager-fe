@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Contract } from '../../models/contract.model';
+import { AuthService } from '../auth/auth.service';
 
 const baseUrl = 'http://localhost:8081/contracts';
 
@@ -11,10 +12,26 @@ const baseUrl = 'http://localhost:8081/contracts';
 })
 export class ContractsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getAll(): Observable<Contract[]> {
     return this.http.get<Contract[]>(`${baseUrl}/getAll`);
+  }
+
+  getContractsByManagerId(managerId: number): Observable<Contract[]> {
+    return this.http.get<Contract[]>(`${baseUrl}/getContractsByManagerId?managerId=${managerId}`);
+  }
+
+  getContracts(): Observable<Contract[]> {
+    const manager = this.authService.getManager();
+    const role = this.authService.getRole();
+    if (role && role.role === 'Amministratore') {
+      return this.getAll();
+    } else if (manager && manager.id) {
+      return this.getContractsByManagerId(manager.id);
+    } else {
+      return throwError('User role is not recognized');
+    }
   }
 
   getContractById(id: number): Observable<Contract> {
