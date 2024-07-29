@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ContractsService } from '../../services/contracts/contracts.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Contract } from '../../models/contract.model';
 import { AddEditContractDialogComponent } from '../../components/contracts/add-edit-contract-dialog/add-edit-contract-dialog.component';
 
@@ -15,13 +16,15 @@ export class ContractsSelectViewComponent implements OnInit {
   contracts: Contract[] = [];
   selectedContract: Contract | null = null;
   displayedColumns: string[] = ['contract', 'projectName', 'actions'];
+  isAdmin: boolean = false;
 
-  constructor(private contractsService: ContractsService,
+  constructor(private contractsService: ContractsService, private authService: AuthService,
     private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
-  ngOnInit(): void {
-    this.loadContracts();
-  }
+    ngOnInit(): void {
+      this.isAdmin = this.authService.getRoleString() === 'Amministratore';
+      this.loadContracts();
+    }
 
   loadContracts(): void {
     this.contractsService.getContracts().subscribe(data => {

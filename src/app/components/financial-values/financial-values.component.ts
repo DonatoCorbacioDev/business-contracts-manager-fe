@@ -6,6 +6,7 @@ import { FinancialValuesService } from '../../services/financial-values/financia
 import { ContractsService } from '../../services/contracts/contracts.service';
 import { FinancialTypesService } from '../../services/financial-types/financial-types.service';
 import { AreaService } from '../../services/area/area.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Contract } from '../../models/contract.model';
 import { FinancialValue } from '../../models/financial-value.model';
 import { FinancialType } from '../../models/financial-type.model';
@@ -27,22 +28,25 @@ export class FinancialValuesComponent implements OnInit {
   displayedColumnsFinancialValues: string[] = ['id', 'month', 'year', 'value', 'financialType', 'area', 'actions'];
   financialTypes: FinancialType[] = [];
   areas: Area[] = [];
+  isAdmin: boolean = false;
 
   constructor(private contractsService: ContractsService,
               private financialValuesService: FinancialValuesService,
               private financialTypesService: FinancialTypesService,
               private areaService: AreaService,
+              private authService: AuthService,
               private snackBar: MatSnackBar,
               private dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.getRoleString() === 'Amministratore';
     this.loadContracts();
     this.loadFinancialTypes();
     this.loadAreas();
   }
 
   loadContracts(): void {
-    this.contractsService.getAll().subscribe((data: Contract[]) => {
+    this.contractsService.getContracts().subscribe((data: Contract[]) => {
       this.contracts = data;
       this.dataSourceContracts.data = this.contracts;
     });
