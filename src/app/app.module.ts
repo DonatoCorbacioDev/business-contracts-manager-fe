@@ -30,6 +30,10 @@ import { AddEditAreaDialogComponent } from './components/area/add-edit-area-dial
 import { AddEditFinancialTypeDialogComponent } from './components/financial-types/add-edit-financial-type-dialog/add-edit-financial-type-dialog.component';
 import { AddEditFinancialValueDialogComponent } from './components/financial-values/add-edit-financial-value-dialog/add-edit-financial-value-dialog.component';
 import { LoginComponent } from './components/login/login.component';
+import { RolesComponent } from './components/roles/roles.component';
+import { AddEditRoleDialogComponent } from './components/roles/add-edit-role-dialog/add-edit-role-dialog.component';
+import { UsersComponent } from './components/users/users.component';
+import { AddEditUserDialogComponent } from './components/users/add-edit-user-dialog/add-edit-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,11 @@ import { LoginComponent } from './components/login/login.component';
     AddEditAreaDialogComponent,
     AddEditFinancialTypeDialogComponent,
     AddEditFinancialValueDialogComponent,
-    LoginComponent
+    LoginComponent,
+    RolesComponent,
+    AddEditRoleDialogComponent,
+    UsersComponent,
+    AddEditUserDialogComponent
   ],
   imports: [
     BrowserModule,

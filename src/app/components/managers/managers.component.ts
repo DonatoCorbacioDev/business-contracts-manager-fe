@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ManagersService } from '../../services/managers/managers.service';
 import { Manager } from '../../models/manager.model';
 import { AddEditManagerDialogComponent } from './add-edit-manager-dialog/add-edit-manager-dialog.component';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-managers',
@@ -68,5 +69,37 @@ export class ManagersComponent implements OnInit {
         });
       }
     );
+  }
+
+  downloadCSV(): void {
+    const csvData = this.convertToCSV(this.managers);
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'managers.csv');
+  }
+
+  convertToCSV(data: Manager[]): string {
+    if (!data.length) {
+      return '';
+    }
+
+    const headers = ['ID', 'First Name', 'Last Name', 'Email', 'Phone Number', 'Department'];
+    const csvRows = [];
+    csvRows.push(headers.join(','));
+
+    for (const row of data) {
+      const values = [
+        row.id,
+        row.firstName,
+        row.lastName,
+        row.email,
+        row.phoneNumber,
+        row.department
+      ];
+
+      const escapedValues = values.map(value => `"${('' + value).replace(/"/g, '\\"')}"`);
+      csvRows.push(escapedValues.join(','));
+    }
+
+    return csvRows.join('\n');
   }
 }

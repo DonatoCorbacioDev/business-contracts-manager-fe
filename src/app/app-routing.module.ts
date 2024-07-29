@@ -7,6 +7,8 @@ import { ContractsSelectViewComponent } from './components/contracts-select-view
 import { AreaComponent } from './components/area/area.component';
 import { FinancialValuesComponent } from './components/financial-values/financial-values.component';
 import { FinancialTypesComponent } from './components/financial-types/financial-types.component';
+import { RolesComponent } from './components/roles/roles.component';
+import { UsersComponent } from './components/users/users.component';
 import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: 'area', component: AreaComponent, canActivate: [AuthGuard] },
   { path: 'financial-types', component: FinancialTypesComponent, canActivate: [AuthGuard] },
   { path: 'financial-values', component: FinancialValuesComponent, canActivate: [AuthGuard] },
+  { path: 'roles', component: RolesComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 ];
 

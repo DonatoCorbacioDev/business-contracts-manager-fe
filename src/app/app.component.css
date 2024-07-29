@@ -1,34 +1,47 @@
 html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .sidenav-container {
-    height: 100vh; /* Altezza completa della finestra */
-    width: 100vw;  /* Larghezza completa della finestra */
-  }
-  
-  .spacer {
-    flex: 1 1 auto;
-  }
-  
-  mat-toolbar, mat-sidenav-container, mat-sidenav-content {
-    margin: 0;
-    padding: 0;
-  }
-  
-  mat-toolbar {
-    position: fixed; /* Mantiene la barra degli strumenti fissa nella parte superiore */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000; /* Assicura che la barra degli strumenti stia sopra altri elementi */
-  }
-  
-  mat-sidenav-content {
-    margin-top: 64px; /* Altezza della toolbar per evitare che si sovrapponga */
-    padding: 0;
-  }
-  
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sidenav-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar, mat-sidenav-container, mat-sidenav-content {
+  margin: 0;
+  padding: 0;
+}
+
+mat-toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+mat-toolbar-row {
+  height: 80px;
+}
+
+button.mat-button {
+  padding: 0 12px; 
+  font-size: 14px; 
+}
+
+.mat-icon {
+  font-size: 20px; 
+  height: 20px;
+  width: 20px;
+}
+
+mat-sidenav-content {
+  margin-top: 80px; 
+}

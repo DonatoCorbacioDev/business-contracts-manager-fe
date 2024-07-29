@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FinancialTypesService } from '../../services/financial-types/financial-types.service';
 import { FinancialType } from '../../models/financial-type.model';
 import { AddEditFinancialTypeDialogComponent } from './add-edit-financial-type-dialog/add-edit-financial-type-dialog.component';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-financial-types',
@@ -67,5 +68,34 @@ export class FinancialTypesComponent {
         });
       }
     );
+  }
+
+  downloadCSV(): void {
+    const csvData = this.convertToCSV(this.financialTypes);
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'financial_types.csv');
+  }
+
+  convertToCSV(data: FinancialType[]): string {
+    if (!data.length) {
+      return '';
+    }
+
+    const headers = ['ID', 'Value', 'Description'];
+    const csvRows = [];
+    csvRows.push(headers.join(','));
+
+    for (const row of data) {
+      const values = [
+        row.id,
+        row.value,
+        row.description
+      ];
+
+      const escapedValues = values.map(value => `"${('' + value).replace(/"/g, '\\"')}"`);
+      csvRows.push(escapedValues.join(','));
+    }
+
+    return csvRows.join('\n');
   }
 }

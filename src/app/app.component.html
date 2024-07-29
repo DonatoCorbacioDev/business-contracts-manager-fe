@@ -2,17 +2,49 @@
   <mat-toolbar-row>
     <span>Business Contracts Manager</span>
     <span class="spacer"></span>
-    <button *ngIf="!isAuthenticated()" mat-button routerLink="/login"><mat-icon>login</mat-icon> Login</button>
+    <button *ngIf="!isAuthenticated()" mat-button routerLink="/login">
+      <mat-icon>login</mat-icon> 
+      <span class="button-text">Login</span>
+    </button>
     <ng-container *ngIf="isAuthenticated()">
-      <button mat-button routerLink="/home"><mat-icon>home</mat-icon> Home</button>
-      <button mat-button routerLink="/contracts-select-view"><mat-icon>description</mat-icon> Contracts</button>
-      <button mat-button routerLink="/financial-values"><mat-icon>account_balance_wallet</mat-icon> Financial Values</button>
+      <button mat-button routerLink="/home">
+        <mat-icon>home</mat-icon> 
+        <span class="button-text">Home</span>
+      </button>
+      <button mat-button routerLink="/contracts-select-view">
+        <mat-icon>description</mat-icon> 
+        <span class="button-text">Contracts</span>
+      </button>
+      <button mat-button routerLink="/financial-values">
+        <mat-icon>account_balance_wallet</mat-icon> 
+        <span class="button-text">Financial Values</span>
+      </button>
       <ng-container *ngIf="isAdmin()">
-        <button mat-button routerLink="/managers"><mat-icon>people</mat-icon> Managers</button>
-        <button mat-button routerLink="/area"><mat-icon>location_on</mat-icon> Area</button>
-        <button mat-button routerLink="/financial-types"><mat-icon>category</mat-icon> Financial Types</button>
+        <button mat-button routerLink="/managers">
+          <mat-icon>people</mat-icon> 
+          <span class="button-text">Managers</span>
+        </button>
+        <button mat-button routerLink="/area">
+          <mat-icon>location_on</mat-icon> 
+          <span class="button-text">Area</span>
+        </button>
+        <button mat-button routerLink="/financial-types">
+          <mat-icon>category</mat-icon> 
+          <span class="button-text">Financial Types</span>
+        </button>
+        <button mat-button routerLink="/users">
+          <mat-icon>supervised_user_circle</mat-icon> 
+          <span class="button-text">Users</span>
+        </button>
+        <button mat-button routerLink="/roles">
+          <mat-icon>admin_panel_settings</mat-icon> 
+          <span class="button-text">Roles</span>
+        </button>
       </ng-container>
-      <button mat-button (click)="logout()"><mat-icon>logout</mat-icon> Logout</button>
+      <button mat-button (click)="logout()">
+        <mat-icon>logout</mat-icon> 
+        <span class="button-text">Logout</span>
+      </button>
     </ng-container>
   </mat-toolbar-row>
 </mat-toolbar>

@@ -12,6 +12,7 @@ import { FinancialValue } from '../../models/financial-value.model';
 import { FinancialType } from '../../models/financial-type.model';
 import { Area } from '../../models/area.model';
 import { AddEditFinancialValueDialogComponent } from './add-edit-financial-value-dialog/add-edit-financial-value-dialog.component';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-financial-values',
@@ -147,5 +148,44 @@ export class FinancialValuesComponent implements OnInit {
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
     this.dataSourceContracts.filter = filterValue;
+  }
+
+  downloadCSV(): void {
+    if (this.selectedContract && this.financialValues.length > 0) {
+      const csvData = this.convertToCSV(this.financialValues);
+      const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+      const contractName = this.selectedContract.contract.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+      saveAs(blob, `${contractName}_financial_values.csv`);
+    } else {
+      this.snackBar.open('No financial values to download', 'Close', {
+        duration: 3000,
+      });
+    }
+  }
+
+  convertToCSV(data: FinancialValue[]): string {
+    if (!data.length) {
+      return '';
+    }
+
+    const headers = ['ID', 'Month', 'Year', 'Value', 'Financial Type', 'Area'];
+    const csvRows = [];
+    csvRows.push(headers.join(','));
+
+    for (const row of data) {
+      const values = [
+        row.id,
+        row.month,
+        row.year,
+        row.value,
+        this.getFinancialType(row.financialTypeId),
+        this.getArea(row.areaId)
+      ];
+
+      const escapedValues = values.map(value => `"${('' + value).replace(/"/g, '\\"')}"`);
+      csvRows.push(escapedValues.join(','));
+    }
+
+    return csvRows.join('\n');
   }
 }

@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AreaService } from '../../services/area/area.service';
 import { Area } from '../../models/area.model';
 import { AddEditAreaDialogComponent } from './add-edit-area-dialog/add-edit-area-dialog.component';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-area',
@@ -67,5 +68,34 @@ export class AreaComponent implements OnInit {
         });
       }
     );
+  }
+
+  downloadCSV(): void {
+    const csvData = this.convertToCSV(this.area);
+    const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'areas.csv');
+  }
+
+  convertToCSV(data: Area[]): string {
+    if (!data.length) {
+      return '';
+    }
+
+    const headers = ['ID', 'Value', 'Description'];
+    const csvRows = [];
+    csvRows.push(headers.join(','));
+
+    for (const row of data) {
+      const values = [
+        row.id,
+        row.value,
+        row.description
+      ];
+
+      const escapedValues = values.map(value => `"${('' + value).replace(/"/g, '\\"')}"`);
+      csvRows.push(escapedValues.join(','));
+    }
+
+    return csvRows.join('\n');
   }
 }

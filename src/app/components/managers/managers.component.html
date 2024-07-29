@@ -1,6 +1,7 @@
 <div>
   <h1>Managers</h1>
   <button mat-raised-button color="primary" (click)="addManager()">Add Manager</button>
+  <button mat-raised-button color="accent" (click)="downloadCSV()">Download CSV</button>
   <table mat-table [dataSource]="managers" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>

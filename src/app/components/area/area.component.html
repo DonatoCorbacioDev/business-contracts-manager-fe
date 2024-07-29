@@ -1,6 +1,7 @@
 <div>
   <h1>Area</h1>
   <button mat-raised-button color="primary" (click)="addArea()">Add Area</button>
+  <button mat-raised-button color="accent" (click)="downloadCSV()">Download CSV</button>
   <table mat-table [dataSource]="area" class="mat-elevation-z8">
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> ID </th>

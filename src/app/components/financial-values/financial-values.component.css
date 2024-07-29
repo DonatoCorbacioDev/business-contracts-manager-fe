@@ -20,7 +20,7 @@ table {
 }
 
 .table-container {
-  max-height: 300px; 
+  max-height: 140px; 
   overflow-y: auto;
 }
 
