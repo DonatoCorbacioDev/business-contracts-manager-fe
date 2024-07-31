@@ -1,22 +1,18 @@
-
 mat-dialog-content {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
   
-  
   mat-form-field {
     width: 100%;
   }
-  
   
   mat-dialog-actions {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
   }
-  
   
   button.mat-button.mat-primary {
     background-color: #1976d2;
@@ -27,7 +23,6 @@ mat-dialog-content {
     background-color: #155a9a;
   }
   
-  
   button.mat-button {
     background-color: #e0e0e0;
     color: black;
@@ -36,7 +31,6 @@ mat-dialog-content {
   button.mat-button:hover {
     background-color: #bdbdbd;
   }
-  
   
   mat-dialog-title {
     font-size: 1.5em;

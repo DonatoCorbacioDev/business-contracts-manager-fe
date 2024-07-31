@@ -1,7 +1,9 @@
 <div class="contracts-container">
   <h1>Contracts</h1>
-  <button *ngIf="isAdmin" mat-raised-button color="primary" (click)="addContract()">Add Contract</button>
-  <button mat-raised-button color="accent" (click)="downloadCSV()">Download CSV</button>
+  <div class="buttons-container">
+    <button *ngIf="isAdmin" mat-raised-button color="primary" (click)="addContract()">Add Contract</button>
+    <button mat-raised-button color="accent" (click)="downloadCSV()">Download CSV</button>
+  </div>
   <table mat-table [dataSource]="contracts" class="mat-elevation-z8">
     <ng-container matColumnDef="contract">
       <th mat-header-cell *matHeaderCellDef> Contract </th>

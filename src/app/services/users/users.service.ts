@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { User } from '../../models/user.model';
 
 const baseUrl = 'http://localhost:8081/users';
@@ -25,6 +26,14 @@ export class UsersService {
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`${baseUrl}/delete?id=${id}`);
+    return this.http.delete<void>(`${baseUrl}/delete?id=${id}`).pipe(
+      catchError(error => {
+        let errorMsg = 'An error occurred';
+        if (error.status === 409) { 
+          errorMsg = 'Cannot delete user';
+        }
+        return throwError(errorMsg);
+      })
+    );
   }
 }

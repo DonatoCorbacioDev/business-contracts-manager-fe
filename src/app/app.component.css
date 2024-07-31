@@ -3,20 +3,7 @@ html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-.sidenav-container {
-  height: 100vh;
-  width: 100vw;
-}
-
-.spacer {
-  flex: 1 1 auto;
-}
-
-mat-toolbar, mat-sidenav-container, mat-sidenav-content {
-  margin: 0;
-  padding: 0;
+  font-family: Arial, sans-serif;
 }
 
 mat-toolbar {
@@ -25,23 +12,71 @@ mat-toolbar {
   left: 0;
   width: 100%;
   z-index: 1000;
+  display: flex;
+  justify-content: space-between;
 }
 
-mat-toolbar-row {
-  height: 80px;
+.mat-toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 1rem;
+  height: 4rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.spacer {
+  flex: 1;
 }
 
 button.mat-button {
-  padding: 0 12px; 
-  font-size: 14px; 
+  display: flex;
+  align-items: center;
+  padding: 0 0.75rem;
+  font-size: 0.875rem;
+  margin-left: 0.5rem;
+}
+
+button.mat-button mat-icon {
+  margin-right: 0.2rem; 
+  font-size: 1.25rem;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.button-text {
+  display: none;
+  margin-left: 0.2rem; 
 }
 
 .mat-icon {
-  font-size: 20px; 
-  height: 20px;
-  width: 20px;
+  font-size: 1.25rem; 
+  height: 1.25rem;   
+  width: 1.25rem;    
+  color: white;
+}
+
+@media (min-width: 600px) {
+  .button-text {
+    display: inline;
+  }
+}
+
+.sidenav-container {
+  height: 100vh;
+  width: 100vw;
 }
 
 mat-sidenav-content {
-  margin-top: 80px; 
+  margin-top: 4rem;
+  padding: 0;
+  height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
 }

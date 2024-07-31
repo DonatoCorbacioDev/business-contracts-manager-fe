@@ -26,17 +26,24 @@ export class UsersComponent implements OnInit {
               private rolesService: RolesService,
               private snackBar: MatSnackBar, private dialog: MatDialog) { }
 
-  ngOnInit(): void {
+ngOnInit(): void {
+    Promise.all([
+    this.loadManagers(),
+    this.loadRoles()
+    ]).then(() => {
     this.loadUsers();
-    this.loadManagers();
-    this.loadRoles();
-  }
-
-  loadUsers(): void {
-    this.usersService.getAll().subscribe(data => {
-      this.users = data;
     });
-  }
+}
+
+loadUsers(): void {
+  this.usersService.getAll().subscribe(data => {
+    this.users = data.map(user => ({
+      ...user,
+      managerName: this.managers.find(m => m.id === user.manager)?.firstName + ' ' + this.managers.find(m => m.id === user.manager)?.lastName,
+      roleName: this.roles.find(r => r.id === user.role)?.role
+    }));
+  });
+}
 
   loadManagers(): void {
     this.managersService.getAll().subscribe(data => {

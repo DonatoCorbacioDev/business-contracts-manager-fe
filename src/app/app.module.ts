@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatMenuModule } from '@angular/material/menu';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -72,6 +73,7 @@ import { AddEditUserDialogComponent } from './components/users/add-edit-user-dia
     MatOptionModule, 
     MatExpansionModule,
     MatSnackBarModule,
+    MatMenuModule,
     ReactiveFormsModule,
     AppRoutingModule
   ],

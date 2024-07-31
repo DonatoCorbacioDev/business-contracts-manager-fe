@@ -25,6 +25,10 @@ export class AreaComponent implements OnInit {
   loadArea(): void {
     this.areaService.getAll().subscribe(data => {
       this.area = data;
+    }, error => {
+      this.snackBar.open('Failed to load areas', 'Close', {
+        duration: 3000,
+      });
     });
   }
 

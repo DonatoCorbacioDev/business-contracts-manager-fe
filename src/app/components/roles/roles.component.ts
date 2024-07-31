@@ -24,8 +24,6 @@ export class RolesComponent implements OnInit {
   loadRoles(): void {
     this.rolesService.getAll().subscribe(data => {
       this.roles = data.sort((a, b) => a.id - b.id);
-    }, error => {
-      this.snackBar.open('Failed to load roles', 'Close', { duration: 3000 });
     });
   }
 
@@ -40,10 +38,6 @@ export class RolesComponent implements OnInit {
         this.rolesService.insert(result).subscribe(
           () => {
             this.loadRoles();
-            this.snackBar.open('Role successfully added', 'Close', { duration: 3000 });
-          },
-          error => {
-            this.snackBar.open('Failed to add role', 'Close', { duration: 3000 });
           }
         );
       }
@@ -61,10 +55,6 @@ export class RolesComponent implements OnInit {
         this.rolesService.update(result).subscribe(
           () => {
             this.loadRoles();
-            this.snackBar.open('Role successfully updated', 'Close', { duration: 3000 });
-          },
-          error => {
-            this.snackBar.open('Failed to update role', 'Close', { duration: 3000 });
           }
         );
       }
@@ -75,10 +65,14 @@ export class RolesComponent implements OnInit {
     this.rolesService.delete(id).subscribe(
       () => {
         this.loadRoles();
-        this.snackBar.open('Role successfully deleted', 'Close', { duration: 3000 });
+        this.snackBar.open('Role successfully deleted', 'Close', {
+          duration: 3000,
+        });
       },
-      error => {
-        this.snackBar.open('Failed to delete role', 'Close', { duration: 3000 });
+      (error) => {
+        this.snackBar.open(error, 'Close', {
+          duration: 5000,
+        });
       }
     );
   }

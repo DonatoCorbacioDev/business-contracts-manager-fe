@@ -34,7 +34,7 @@ export class ManagersService {
       catchError(error => {
         let errorMsg = 'An error occurred';
         if (error.status === 409) { 
-          errorMsg = 'Cannot delete manager: they are assigned to one or more contracts.';
+          errorMsg = 'Cannot delete manager';
         }
         return throwError(errorMsg);
       })

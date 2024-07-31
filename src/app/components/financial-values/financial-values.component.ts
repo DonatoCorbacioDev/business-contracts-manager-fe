@@ -86,9 +86,14 @@ export class FinancialValuesComponent implements OnInit {
     return area ? area.value : 'N/A';
   }
 
-  selectContract(contract: Contract): void {
-    this.selectedContract = contract;
-    this.loadFinancialValues(contract.id);
+  toggleContractView(contract: Contract): void {
+    if (this.selectedContract && this.selectedContract.id === contract.id) {
+      this.selectedContract = null;
+      this.dataSourceFinancialValues.data = [];
+    } else {
+      this.selectedContract = contract;
+      this.loadFinancialValues(contract.id);
+    }
   }
 
   addFinancialValue(): void {
