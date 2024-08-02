@@ -46,14 +46,14 @@ export class AddEditManagerDialogComponent implements OnInit {
           () => {
             this.dialogRef.close(true);
           },
-          error => console.error('Error updating manager:', error)
+          error => console.error('Error updating user:', error)
         );
       } else {
         this.managersService.insertManager(manager).subscribe(
           () => {
             this.dialogRef.close(true);
           },
-          error => console.error('Error creating manager:', error)
+          error => console.error('Error creating user:', error)
         );
       }
     }

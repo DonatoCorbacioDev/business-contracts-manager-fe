@@ -59,12 +59,12 @@ export class ManagersComponent implements OnInit {
     this.managersService.deleteManager(id).subscribe(
       () => {
         this.loadManagers();
-        this.snackBar.open('Manager successfully deleted', 'Close', {
+        this.snackBar.open('User successfully deleted', 'Close', {
           duration: 3000,
         });
       },
-      (error) => {
-        this.snackBar.open(error, 'Close', {
+      () => {
+        this.snackBar.open('Cannot delete user', 'Close', {
           duration: 5000,
         });
       }
@@ -74,7 +74,7 @@ export class ManagersComponent implements OnInit {
   downloadCSV(): void {
     const csvData = this.convertToCSV(this.managers);
     const blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
-    saveAs(blob, 'managers.csv');
+    saveAs(blob, 'users.csv');
   }
 
   convertToCSV(data: Manager[]): string {

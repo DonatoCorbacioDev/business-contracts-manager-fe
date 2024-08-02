@@ -94,12 +94,12 @@ loadUsers(): void {
     this.usersService.delete(id).subscribe(
       () => {
         this.loadUsers();
-        this.snackBar.open('User successfully deleted', 'Close', {
+        this.snackBar.open('Access successfully deleted', 'Close', {
           duration: 3000,
         });
       },
-      (error) => {
-        this.snackBar.open(error, 'Close', {
+      () => {
+        this.snackBar.open('Cannot delete access', 'Close', {
           duration: 5000,
         });
       }
