@@ -1,27 +1,69 @@
-# Angular
+![Angular](https://img.shields.io/badge/Angular-17-red?logo=angular) ![TypeScript](https://img.shields.io/badge/TypeScript-5.4-blue?logo=typescript) ![Material](https://img.shields.io/badge/Material-17-purple?logo=material-design)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+# 🎨 Business Contracts Manager - Frontend
 
-## Development server
+> Angular web application for business contracts management.  
+> Frontend companion to the [Backend API](https://github.com/DonatoCorbacioDev/business-contracts-manager)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🛠️ Tech Stack
 
-## Code scaffolding
+- **Angular 17.3**
+- **Angular Material**
+- **Chart.js** (ng2-charts)
+- **TypeScript**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🚀 Quick Start
 
-## Build
+### Prerequisites
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Node.js 18+
+- npm 9+
 
-## Running unit tests
+### Setup
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. **Clone and install**
 
-## Running end-to-end tests
+   ```bash
+   git clone https://github.com/DonatoCorbacioDev/business-contracts-manager-fe.git
+   cd business-contracts-manager-fe
+   npm install
+   ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. **Run development server**
 
-## Further help
+   ```bash
+   ng serve
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   Navigate to `http://localhost:4200/`
+
+3. **Build for production**
+   ```bash
+   ng build
+   ```
+
+## ✨ Features
+
+- ✅ User authentication and authorization
+- ✅ Contract CRUD operations
+- ✅ Financial values visualization
+- ✅ Manager assignments
+- ✅ Responsive Material Design UI
+- ✅ Real-time data updates
+
+## 🎓 Academic Context
+
+**Bachelor's Thesis** - University of Bari "Aldo Moro"  
+Frontend implementation developed during 3-month internship.
+
+## 📄 License
+
+© 2025 Donato Corbacio  
+All Rights Reserved - For portfolio demonstration only
+
+## 📬 Contact
+
+**Donato Corbacio**  
+📧 donatocorbacio92@gmail.com  
+🔗 [LinkedIn](https://www.linkedin.com/in/donato-corbacio/)  
+🔗 [GitHub](https://github.com/DonatoCorbacioDev)
